@@ -1,3 +1,8 @@
+#include <errno.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <string.h>
+
 #include "db.h"
 
 const uint32_t ID_SIZE = size_of_attribute(Row, id);

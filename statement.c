@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "db.h"
 
 static PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {

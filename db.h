@@ -4,11 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
 #include <unistd.h>
-#include <errno.h>
-#include <fcntl.h>
 
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 #define COLUMN_USERNAME_SIZE 32
@@ -20,6 +16,13 @@ typedef struct {
     char username[COLUMN_USERNAME_SIZE];
     char email[COLUMN_EMAIL_SIZE];
 } Row;
+
+typedef enum {
+    NODE_INTERNAL,
+    NODE_LEAF
+} NodeType;
+
+typedef struct Table Table;
 
 // 将数据结构进一步抽象，Cursor表示数据库正在操作的行
 // 只用知道数据所在的行就可以得到对应的内存位置
@@ -36,10 +39,10 @@ typedef struct {
 } Pager;
 
 // 在Table中抽象出一个pager，以后都向pager中查询数据
-typedef struct {
+struct Table {
     uint32_t num_rows;
     Pager* pager;
-} Table;
+};
 
 typedef enum {
     META_COMMAND_SUCCESS,
@@ -105,7 +108,7 @@ void db_close(Table* table);
 void pager_flush(Pager* pager, uint32_t page_num, uint32_t size);
 
 Cursor* table_start(Table* table);
-Cursor* table_end(Table* table)
+Cursor* table_end(Table* table);
 void cursor_advance(Cursor* cursor);
 
 MetaCommandResult do_meta_command(InputBuffer *input_buffer, Table *table);
