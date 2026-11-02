@@ -2,6 +2,7 @@
 cmake-build-debug/
 cmake-build-release/
 cmake-build-*/
+build/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -14,6 +15,9 @@ Makefile
 *.dylib
 *.exe
 *.out
+
+# ===== 本地运行数据 =====
+data.sql
 
 # ===== CLion IDE 配置 =====
 .idea/
